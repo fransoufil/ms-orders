@@ -1,24 +1,25 @@
 package com.fransoufil.ms_orders.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fransoufil.ms_orders.entities.enums.Status;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Table(name = "orders")
-public class Order {
+public class Order implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +32,8 @@ public class Order {
     private Long customerId;
 
     @NotNull
-    private LocalDateTime dateTime;
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
+    private Date dateTime;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -40,8 +42,15 @@ public class Order {
     @NotNull
     private BigDecimal totalAmount;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orders", fetch = FetchType.EAGER)
-    @JsonManagedReference
-    private List<Product> products = new ArrayList<>();
+    @OneToMany(mappedBy="id.pedido")
+    private Set<ItemOrder> itens = new HashSet<>();
+
+    public BigDecimal getValorTotal() {
+        BigDecimal soma = BigDecimal.ZERO;
+        for (ItemOrder ip : itens) {
+            soma = soma.add(ip.getSubTotal());
+        }
+        return soma;
+    }
 
 }

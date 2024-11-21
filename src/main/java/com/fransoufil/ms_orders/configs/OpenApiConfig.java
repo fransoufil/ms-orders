@@ -13,9 +13,9 @@ public class OpenApiConfig {
     public OpenAPI customOpenApi() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Curso Udemy Spring-Boot-Ionic Nelio Alves")
+                        .title("Orders API")
                         .version("v1")
-                        .description("API para Gestao de Clientes, Produtos, Pedidos e Pagamentos")
+                        .description("API for Orders controll")
                         .termsOfService("https://www.github.fransoufil.com")
                         .license(new License()
                                 .name("Apache 2.0")
