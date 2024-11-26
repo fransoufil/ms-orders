@@ -1,6 +1,5 @@
 package com.fransoufil.ms_orders.services.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fransoufil.ms_orders.entities.Order;
 import com.fransoufil.ms_orders.entities.dtos.OrderDTO;
@@ -19,8 +18,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
